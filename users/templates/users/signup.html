@@ -1,0 +1,33 @@
+{% extends 'library/layout.html' %}
+
+{% block title  %}
+    signup
+{% endblock %}
+
+{% block body %}
+
+      <section>
+      <div class="signup-box">
+          <div class="form_">
+           <div class="field"><h2>Sign up</h2></div> 
+            <form method="post" action="{% url 'createuser' %}">
+              {% csrf_token %}
+              {% for field in form %}
+                <p>
+                 <div class="field">
+                   {{ field.label_tag }}<br>
+                   {{ field }}
+                 </div>
+                  {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+                </p>
+              {% endfor %}
+              <div class="field">
+              <button type="submit">Sign up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </section>
+{% endblock %}

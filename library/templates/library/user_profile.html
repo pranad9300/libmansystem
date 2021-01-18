@@ -1,0 +1,94 @@
+{% extends "library/layout.html" %}
+
+{% block title %}
+   Your Books
+{% endblock %}
+
+
+{% block body %}
+   {% load static %}
+    <div class="row-c">
+       <div class="side-c">
+           <ul class="a">
+               <li><a href="{% url 'user_profile' %}">Profile</a></li>
+               <li><a href="{% url 'user_books' %}" >Your Books</a></li>
+               <li><a href="{% url 'update' %}" >update profile</a></li>
+           </ul>
+       </div>
+       <div class="main-c" id="mn">
+           {% if show == "user_profile" %}
+               <div class="profile">
+                 <div>
+                   <p>{{user.username}}</p>
+                   <p>{{user.email}}</p>
+                   <p>{{user.profile.reg_no}}</p>
+                   <!-- <p>{{user.profile.Branch|safe}}</p>
+                   <p>{{user.profile.Year}}</p> -->
+                 </div>
+               </div>
+           {% elif show == "update_profile" %}
+             <section>
+              <div class="signup-box">
+                <div class="form_">
+                 <div class="field"><h2>Update</h2></div> 
+                  <form method="post" action="{% url 'update_profile' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                      <p>
+                       <div class="field">
+                         {{ field.label_tag }}<br>
+                         {{ field }}
+                       </div>
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                    {% endfor %}
+                    <div class="field">
+                    <button type="submit">Sign up</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+           {% else %}
+           <div class="profile">
+            {% if book_count != 0 %}
+            <table id="table_id" class="table table-hover">
+                <thead>
+                    <th scope="col">book id</th>
+                    <th scope="col">book name</th>
+                    <th scope="col">book author</th>
+                    <th scope="col">category</th>
+                    <th scope="col">return</th>
+                </thead>
+                <tbody class="text-black" class="text-align:center" >
+                   {% for book in books %}
+                    <tr>
+                        <td>{{book.book_id}}</td>
+                        <td>{{book.book_name}}</td>
+                        <td>{{book.book_author}}</td>
+                        <td>{{book.category}}</td>
+                        <td><a href="return/{{book.book_id}}">return</a></td>
+                    </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+             <a href="{% url 'add_books' %}">add_books</a>
+            {% else %}
+                <div class="jumbotron row-book">
+                    <div>
+                      Sorry,You don't have any books.
+                   </div>
+                   <a href="{% url 'add_books' %}">add_books</a>
+                </div>
+            {% endif %}
+           </div>
+           {% endif %}
+       </div>
+    </div>
+    {% if message %}
+           <p style="margin:auto">{{message}}</p> 
+    {% endif %}
+{% endblock %}

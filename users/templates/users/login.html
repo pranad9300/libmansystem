@@ -1,0 +1,31 @@
+{% extends 'library/layout.html' %}
+
+{% block title  %}
+    login
+{% endblock %}
+
+{% block body %}
+    
+   <div class="signup-box">
+       <div class="form_">
+           <form action="{% url 'handle_login' %}" method="post">
+               {% csrf_token %}
+               <div class="field">
+                       <label for="username" class="labels">Enter Username:</label>
+                       <input type="text" id="username"  name="username" class="inputs">
+               </div>
+               <div class="field">
+                <label for="password" class="labels">Enter password:</label>
+                <input type="password" id="password"  name="password" class="inputs">
+               </div>
+               <div class="field">
+                   <input type="submit" value="Login">
+               </div>
+           </form>
+            <div style="text-align: center;">
+              <a href="{% url 'forgot_password' %}" style="margin: auto; color:rgb(194, 75, 79);">forgot_password</a>
+            </div>
+       </div>
+   </div>
+
+{% endblock %}

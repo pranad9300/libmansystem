@@ -1,0 +1,29 @@
+{% extends 'library/layout.html' %}
+
+{% block title %}
+  add books
+{% endblock %}
+
+{% block body %}
+<div class="add-book-row">
+   
+    {% for book in books_avalaible %}
+       <div class="book_">
+           
+           <div><img src="{{book.book_image.url}}" alt="1" style="height: 200px; width:200px; object-fit: cover;"></div>
+           <div>{{book.book_name}}</div>
+           
+             <div>{{book.book_author}}</div>    
+             <div>{{book.description}}</div>
+             <div>{{book.avalaible}}</div>   
+            <div>{{book.category}}</div> 
+            
+          
+          <a class="btn btn-outline-success" href="add/{{book.book_id}}">add_book<a>
+       </div>
+    {% endfor %}
+ </div>
+ {% if message %}
+   <p>{{message}}</p> 
+ {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'library/layout.html' %}
+
+{% block title  %}
+    OTP
+{% endblock %}
+
+{% block body %}
+
+      <section>
+
+      <div style="text-align: center;">
+        <h3 style="margin: auto;">Enter OTP sent to your email and mobile</h3>
+      </div>
+      {% if error_message %}
+        <div style="text-align: center;">
+          <h2 style="margin: auto;">Fillup error!;{{error_message}}</h2>
+        </div>
+      {% endif %}  
+      <div class="signup-box">
+          <div class="form_">
+           <div class="field"><h2>Enter OTP</h2></div> 
+            <form method="post" action="{% url 'check_otp' %}">
+              {% if username %}
+              <input type="hidden" value="{{username}}" name="username">
+              {% endif %}
+              {% csrf_token %}
+              {% for field in form %}
+                <p>
+                 <div class="field">
+                   {{ field.label_tag }}<br>
+                   {{ field }}
+                 </div>
+                  {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+                </p>
+              {% endfor %}
+              <div class="field">
+              <button type="submit">submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    </section>
+{% endblock %}

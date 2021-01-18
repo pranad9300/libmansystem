@@ -1,0 +1,27 @@
+{% extends "library/layout.html" %}
+
+{% block title %}
+   Deep Learning
+{% endblock %}
+
+
+{% block body %}
+   {% load static %}
+    <div class="book-row">
+   
+       {% for book in books %}
+          <div class="book-show">
+              <div><img src="{{book.book_image.url}}" alt="1" style="height: 200px; width:200px; object-fit: cover;"></div>
+              <div>{{book.book_name}}</div>
+              <div class="showable-items">
+                <div>{{book.book_author}}</div>    
+                <div>{{book.description}}</div>
+                <div>avalaible:{{book.avalaible}}</div>   
+               <div>{{book.category}}</div> 
+             </div>   
+             <button class="btn btn-outline-success show-coll" id="b">show_more</button>
+          </div>
+         {% endfor %}
+    
+    </div>
+{% endblock %}
